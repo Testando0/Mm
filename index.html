@@ -1,656 +1,834 @@
-
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#050505">
-    <title>Marília Mendonça | Legado Eterno</title>
-    <meta name="description" content="Uma experiência cinemática sobre a vida e a obra da maior da sofrência.">
-
-    <!-- Fontes Cinematográficas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trix IA | Powered by RPU</title>
+    
+    <!-- Importando fontes futuristas do Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-deep: #050505;
-            --bg-card: #121212;
-            --gold-primary: #D4AF37;
-            --gold-dim: #8a701e;
-            --text-main: #e0e0e0;
-            --text-muted: #888888;
-            --font-title: 'Cinzel', serif;
-            --font-body: 'Montserrat', sans-serif;
-            --transition-smooth: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            --primary-red: #ff003c;
+            --primary-red-dark: #8a001e;
+            --primary-red-glow: rgba(255, 0, 60, 0.6);
+            --bg-black: #050505;
+            --bg-dark: #0a0a0a;
+            --text-white: #f0f0f0;
+            --text-gray: #a0a0a0;
+            --glass: rgba(10, 10, 10, 0.85);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            cursor: none; /* Cursor personalizado */
         }
 
         body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: var(--font-body);
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* --- Utilitários de Performance e Estética --- */
-        ::selection {
-            background: var(--gold-primary);
-            color: #000;
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-red);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            mix-blend-mode: difference;
+        }
+        .cursor.hovered {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-red);
+            opacity: 0.5;
         }
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Efeito de Granulação de Filme */
-        .film-grain {
+        /* Canvas Background */
+        #particle-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-            z-index: 9999;
+            z-index: -1;
             opacity: 0.4;
         }
 
-        /* --- Header Navigation --- */
-        nav {
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .highlight {
+            color: var(--primary-red);
+            text-shadow: 0 0 10px var(--primary-red-glow);
+        }
+
+        /* Header */
+        header {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px 0;
-            z-index: 1000;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            transition: var(--transition-smooth);
-        }
-
-        .nav-content {
+            padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            z-index: 1000;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            backdrop-filter: blur(5px);
         }
 
-        .brand {
-            font-family: var(--font-title);
-            font-weight: 700;
-            color: var(--gold-primary);
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .menu-icon {
-            width: 30px;
-            height: 20px;
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-white);
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            cursor: pointer;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo span {
+            color: var(--primary-red);
         }
 
-        .menu-icon span {
-            display: block;
-            width: 100%;
-            height: 2px;
-            background-color: var(--gold-primary);
-            transition: var(--transition-smooth);
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
         }
 
-        /* --- Hero Section (Cinematic Intro) --- */
-        #hero {
-            height: 100vh;
-            width: 100%;
+        nav a {
+            text-decoration: none;
+            color: var(--text-white);
+            font-weight: 500;
+            font-size: 1.1rem;
             position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background-color: var(--primary-red);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--primary-red);
+        }
+
+        nav a:hover {
+            color: var(--primary-red);
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            padding: 0 5%;
             overflow: hidden;
         }
 
-        .hero-bg {
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+            text-align: left;
+        }
+
+        .glitch-text {
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            position: relative;
+            animation: glitch-anim 3s infinite alternate-reverse;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            border-left: 3px solid var(--primary-red);
+            padding-left: 20px;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid var(--primary-red);
+            color: var(--primary-red);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--primary-red);
+            z-index: -1;
+            transition: width 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            color: var(--text-white);
+            box-shadow: 0 0 30px var(--primary-red-glow);
+        }
+        .btn-cta:hover::before {
+            width: 100%;
+        }
+
+        /* RPU Visualization (CSS Only) */
+        .rpu-visual {
+            position: absolute;
+            right: -10%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,0,60,0.1) 0%, rgba(0,0,0,0) 70%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.6;
+            animation: rotate-slow 20s linear infinite;
+        }
+
+        .wafer {
+            width: 450px;
+            height: 450px;
+            background-color: #1a1a1a;
+            border-radius: 50%; /* Wafer shape */
+            border: 1px solid var(--primary-red);
+            position: relative;
+            box-shadow: 0 0 50px rgba(255, 0, 60, 0.2);
+            overflow: hidden;
+        }
+
+        /* Simulating the chip cores inside the wafer */
+        .wafer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(255, 0, 60, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 60, 0.3) 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.5;
+            mask-image: radial-gradient(circle, black 60%, transparent 100%);
+            -webkit-mask-image: radial-gradient(circle, black 60%, transparent 100%);
+        }
+
+        .chip-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: var(--bg-black);
+            border: 2px solid var(--primary-red);
+            box-shadow: 0 0 20px var(--primary-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-red);
+            font-family: 'Orbitron';
+            font-size: 1.2rem;
+        }
+
+        /* Content Sections */
+        section {
+            padding: 100px 10%;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-red);
+            margin: 15px auto 0;
+            box-shadow: 0 0 10px var(--primary-red);
+        }
+
+        /* Grid for RPU Details */
+        .rpu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid #333;
+            padding: 30px;
+            border-radius: 5px;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            /* Imagem placeholder de alta qualidade e tema musical */
-            background-image: linear-gradient(to bottom, rgba(5,5,5,0.3), var(--bg-deep)), url('https://picsum.photos/seed/mariliahero/1080/1920');
-            background-size: cover;
-            background-position: center;
-            z-index: -1;
-            transform: scale(1.1);
-            animation: slowZoom 20s infinite alternate;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
         }
 
-        @keyframes slowZoom {
-            from { transform: scale(1.1); }
-            to { transform: scale(1.2); }
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-red);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,0,60,0.1);
         }
 
-        .hero-content {
-            text-align: center;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1.5s ease-out forwards 0.5s;
+        .card:hover::before {
+            transform: translateX(100%);
         }
 
-        .hero-subtitle {
-            font-size: 0.9rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--gold-primary);
+        .card-icon {
+            font-size: 2rem;
+            color: var(--primary-red);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
             margin-bottom: 15px;
         }
 
-        .hero-title {
-            font-family: var(--font-title);
-            font-size: clamp(3rem, 10vw, 6rem);
-            font-weight: 900;
-            line-height: 1;
-            background: linear-gradient(to right, #fff, #999);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-mouse {
-            width: 24px;
-            height: 40px;
-            border: 2px solid var(--gold-dim);
-            border-radius: 12px;
-            position: relative;
-        }
-
-        .scroll-wheel {
-            width: 4px;
-            height: 8px;
-            background: var(--gold-primary);
-            border-radius: 2px;
-            position: absolute;
-            top: 6px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* --- Section Styling Global --- */
-        section {
-            padding: 80px 0;
-            position: relative;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-            opacity: 0; /* Para animação JS */
-            transform: translateY(20px);
-            transition: var(--transition-smooth);
-        }
-
-        .section-title {
-            font-family: var(--font-title);
-            font-size: 2.5rem;
-            color: var(--gold-primary);
-            margin-bottom: 10px;
-        }
-
-        .section-line {
-            width: 60px;
-            height: 3px;
-            background: var(--gold-dim);
-            margin: 0 auto;
-        }
-
-        /* --- Biografia (Timeline Vertical) --- */
-        .bio-content {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-
-        .bio-card {
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: 4px;
-            border-left: 3px solid var(--gold-dim);
-            position: relative;
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: var(--transition-smooth);
-        }
-
-        .bio-year {
-            font-family: var(--font-title);
-            font-size: 1.5rem;
-            color: var(--gold-primary);
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .bio-text {
+        .card p {
+            color: var(--text-gray);
             font-size: 1rem;
-            color: #ccc;
-        }
-
-        /* --- Discografia (Horizontal Snap Scroll - Mobile Friendly) --- */
-        .discography-scroller {
-            display: flex;
-            overflow-x: auto;
-            gap: 20px;
-            padding-bottom: 30px;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .discography-scroller::-webkit-scrollbar {
-            height: 4px;
-        }
-        
-        .discography-scroller::-webkit-scrollbar-thumb {
-            background: var(--gold-dim);
-            border-radius: 4px;
-        }
-
-        .album-card {
-            min-width: 280px;
-            width: 280px;
-            height: 400px;
-            background-color: #1a1a1a;
-            border-radius: 8px;
-            overflow: hidden;
-            scroll-snap-align: center;
-            position: relative;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease;
-            opacity: 0;
-            transform: scale(0.9);
-        }
-        
-        .album-card:active {
-            transform: scale(0.95);
-        }
-
-        .album-cover {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .album-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            padding: 20px;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .album-card:hover .album-overlay {
-            transform: translateY(0);
-        }
-
-        .album-title {
-            font-family: var(--font-title);
-            font-size: 1.2rem;
-            color: white;
-        }
-
-        .album-year {
-            font-size: 0.8rem;
-            color: var(--gold-primary);
-        }
-
-        /* --- Stats Section (Counters) --- */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 30px 10px;
-            background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            border-radius: 8px;
-            opacity: 0;
-            transition: var(--transition-smooth);
         }
 
         .stat-number {
-            font-family: var(--font-title);
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--gold-primary);
+            color: var(--text-white);
+            margin-bottom: 5px;
             display: block;
         }
 
         .stat-label {
-            font-size: 0.8rem;
             text-transform: uppercase;
+            font-size: 0.8rem;
             letter-spacing: 1px;
-            color: var(--text-muted);
+            color: var(--primary-red);
         }
 
-        /* --- Gallery Section --- */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
+        /* Comparison Section */
+        .comparison {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            align-items: center;
+            margin-top: 50px;
         }
 
-        .gallery-item {
+        .comparison-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .comparison-visual {
+            flex: 1;
+            min-width: 300px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, #111 0%, #000 100%);
+            border: 1px solid #333;
             position: relative;
-            overflow: hidden;
-            aspect-ratio: 1/1;
-            border-radius: 4px;
-            cursor: pointer;
-            opacity: 0;
         }
 
-        .gallery-img {
+        .gpu-box {
+            width: 40px;
+            height: 40px;
+            background: #333;
+            border: 1px solid #555;
+            box-shadow: 0 0 5px #333;
+            margin-right: 20px;
+            position: relative;
+        }
+        .gpu-label {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            font-size: 0.7rem;
+            color: #777;
+            width: 100px;
+        }
+
+        .rpu-box {
+            width: 230px; /* 58x representation approx scaled down */
+            height: 230px;
+            background: rgba(255, 0, 60, 0.1);
+            border: 2px solid var(--primary-red);
+            box-shadow: 0 0 30px var(--primary-red-glow);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron';
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .rpu-label {
+            position: absolute;
+            bottom: -30px;
+            font-size: 1rem;
+            color: var(--primary-red);
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .gallery-item:hover .gallery-img {
-            transform: scale(1.1);
-        }
-
-        /* --- Footer --- */
-        footer {
-            padding: 60px 0 30px;
             text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Why Special Section */
+        .why-special {
+            background: linear-gradient(180deg, var(--bg-black) 0%, #0f0005 100%);
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--primary-red);
+        }
+
+        .feature-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: var(--text-white);
+        }
+
+        .feature-item p {
+            color: var(--text-gray);
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px;
+            border-top: 1px solid #222;
+            text-align: center;
             background: #000;
         }
 
-        .footer-quote {
-            font-family: var(--font-title);
+        .footer-logo {
+            font-family: 'Orbitron';
             font-size: 1.5rem;
-            color: var(--gold-primary);
+            color: var(--text-white);
             margin-bottom: 20px;
-            font-style: italic;
+        }
+        .footer-logo span { color: var(--primary-red); }
+
+        .copyright {
+            color: #555;
+            font-size: 0.9rem;
         }
 
-        .footer-credits {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        /* Animations */
+        @keyframes rotate-slow {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
         }
 
-        /* --- Animations Keyframes --- */
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
+        @keyframes glitch-anim {
+            0% { text-shadow: 2px 0 var(--primary-red-dark), -2px 0 var(--primary-red); }
+            2% { text-shadow: 2px 0 var(--primary-red-dark), -2px 0 var(--primary-red); }
+            4% { text-shadow: 2px 0 var(--primary-red-dark), -2px 0 var(--primary-red); }
+            5% { text-shadow: -2px 0 var(--primary-red-dark), 2px 0 var(--primary-red); }
+            100% { text-shadow: 2px 0 var(--primary-red-dark), -2px 0 var(--primary-red); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                padding-top: 100px;
             }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
-            40% {transform: translateX(-50%) translateY(-10px);}
-            60% {transform: translateX(-50%) translateY(-5px);}
-        }
-
-        /* Class utilitária para ativar animações no scroll */
-        .reveal-active {
-            opacity: 1 !important;
-            transform: translate(0, 0) scale(1) !important;
-        }
-
-        /* Media Queries para telas maiores */
-        @media (min-width: 768px) {
-            .stats-grid {
-                grid-template-columns: repeat(4, 1fr);
+            
+            .hero-content {
+                z-index: 2;
+                padding: 20px;
+                background: rgba(0,0,0,0.7);
             }
-            .gallery-grid {
-                grid-template-columns: repeat(4, 1fr);
+
+            .rpu-visual {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                width: 300px;
+                height: 300px;
+                margin: 20px auto;
             }
-            .bio-content {
-                max-width: 800px;
-                margin: 0 auto;
+            .wafer {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .glitch-text {
+                font-size: 2.5rem;
+            }
+
+            header {
+                padding: 15px 20px;
+            }
+            
+            nav ul {
+                display: none; /* Hide nav on small mobile for simplicity */
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Efeito visual de filme -->
-    <div class="film-grain"></div>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
 
-    <!-- Navegação -->
-    <nav>
-        <div class="container nav-content">
-            <div class="brand">Marília M.</div>
-            <div class="menu-icon" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+    <!-- Background Canvas -->
+    <canvas id="particle-canvas"></canvas>
 
-    <!-- Hero Section -->
-    <header id="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content container">
-            <p class="hero-subtitle">A Rainha da Sofrência</p>
-            <h1 class="hero-title">Marília<br>Mendonça</h1>
-            <p style="color: #ccc; font-size: 0.9rem; max-width: 600px; margin: 0 auto;">Uma voz que ecoou na dor e na alegria de milhões. O legado eterno da maior cantora do Brasil.</p>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <div style="width: 20px; height: 20px; background: var(--primary-red); box-shadow: 0 0 10px var(--primary-red);"></div>
+            TRIX<span>IA</span>
         </div>
-        <div class="scroll-indicator">
-            <div class="scroll-mouse">
-                <div class="scroll-wheel"></div>
-            </div>
-        </div>
+        <nav>
+            <ul>
+                <li><a href="#hero" class="hover-trigger">Início</a></li>
+                <li><a href="#about" class="hover-trigger">O RPU</a></li>
+                <li><a href="#specs" class="hover-trigger">Especificações</a></li>
+                <li><a href="#benefits" class="hover-trigger">Tecnologia</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <main>
-        <!-- Biografia Section -->
-        <section id="biografia">
-            <div class="container">
-                <div class="section-header reveal-on-scroll">
-                    <h2 class="section-title">A História</h2>
-                    <div class="section-line"></div>
-                </div>
-
-                <div class="bio-content">
-                    <article class="bio-card reveal-on-scroll">
-                        <span class="bio-year">1994 - O Início</span>
-                        <p class="bio-text">Nascida em Cristianópolis, Goiás, Marília Dias de Mendonça mostrou seu talento cedo. Com apenas 12 anos, já cantava em corais e escrevia suas primeiras canções, revelando a sensibilidade poética que a marcaria para sempre.</p>
-                    </article>
-
-                    <article class="bio-card reveal-on-scroll">
-                        <span class="bio-year">2015 - Explosão</span>
-                        <p class="bio-text">O lançamento do álbum homônio e o sucesso de "Sentimento Louco" consolidaram sua carreira. Ela rompeu barreiras, trazendo o feminejo para o mainstream e falando diretamente ao coração das mulheres brasileiras.</p>
-                    </article>
-
-                    <article class="bio-card reveal-on-scroll">
-                        <span class="bio-year">2019 - Realidade</span>
-                        <p class="bio-text">O DVD "Todos os Cantos" quebrou recordes, gravado em shows por todo o Brasil. Ela se tornou a mulher mais ouvida no país, dominando o Spotify e as rádios com uma autenticidade ímpar.</p>
-                    </article>
-
-                    <article class="bio-card reveal-on-scroll">
-                        <span class="bio-year">2021 - Eternidade</span>
-                        <p class="bio-text">Sua partida física chocou o mundo, mas sua voz permanece viva. Com bilhões de streams e o prêmio Grammy Latino póstumo, Marília se transformou em lenda, imortalizada na cultura popular brasileira.</p>
-                    </article>
-                </div>
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="rpu-visual">
+            <div class="wafer">
+                <div class="chip-center">RPU</div>
             </div>
-        </section>
-
-        <!-- Discografia Section -->
-        <section id="discografia">
-            <div class="container">
-                <div class="section-header reveal-on-scroll">
-                    <h2 class="section-title">Obras Primas</h2>
-                    <div class="section-line"></div>
-                </div>
-
-                <!-- Scroll Snap para experiência nativa no mobile -->
-                <div class="discography-scroller">
-                    <div class="album-card reveal-on-scroll">
-                        <img src="https://picsum.photos/seed/mar1/400/600" alt="Capa Album" class="album-cover" loading="lazy">
-                        <div class="album-overlay">
-                            <h3 class="album-title">Realidade</h3>
-                            <span class="album-year">2017</span>
-                        </div>
-                    </div>
-                    <div class="album-card reveal-on-scroll">
-                        <img src="https://picsum.photos/seed/mar2/400/600" alt="Capa Album" class="album-cover" loading="lazy">
-                        <div class="album-overlay">
-                            <h3 class="album-title">Todos os Cantos</h3>
-                            <span class="album-year">2019</span>
-                        </div>
-                    </div>
-                    <div class="album-card reveal-on-scroll">
-                        <img src="https://picsum.photos/seed/mar3/400/600" alt="Capa Album" class="album-cover" loading="lazy">
-                        <div class="album-overlay">
-                            <h3 class="album-title">Patroas</h3>
-                            <span class="album-year">2019</span>
-                        </div>
-                    </div>
-                    <div class="album-card reveal-on-scroll">
-                        <img src="https://picsum.photos/seed/mar4/400/600" alt="Capa Album" class="album-cover" loading="lazy">
-                        <div class="album-overlay">
-                            <h3 class="album-title">Patroas 35%</h3>
-                            <span class="album-year">2020</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Stats Section -->
-        <section id="numeros">
-            <div class="container">
-                <div class="section-header reveal-on-scroll">
-                    <h2 class="section-title">O Impacto</h2>
-                    <div class="section-line"></div>
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-item reveal-on-scroll">
-                        <span class="stat-number">+7B</span>
-                        <span class="stat-label">Streams</span>
-                    </div>
-                    <div class="stat-item reveal-on-scroll">
-                        <span class="stat-number">+40M</span>
-                        <span class="stat-label">Seguidores</span>
-                    </div>
-                    <div class="stat-item reveal-on-scroll">
-                        <span class="stat-number">1</span>
-                        <span class="stat-label">Grammy Latino</span>
-                    </div>
-                    <div class="stat-item reveal-on-scroll">
-                        <span class="stat-number">#1</span>
-                        <span class="stat-label">Spotify Brasil</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gallery Section -->
-        <section id="galeria">
-            <div class="container">
-                <div class="section-header reveal-on-scroll">
-                    <h2 class="section-title">Memórias</h2>
-                    <div class="section-line"></div>
-                </div>
-                <div class="gallery-grid">
-                    <div class="gallery-item reveal-on-scroll"><img src="https://picsum.photos/seed/show1/400/400" class="gallery-img" loading="lazy" alt="Show"></div>
-                    <div class="gallery-item reveal-on-scroll"><img src="https://picsum.photos/seed/backstage/400/400" class="gallery-img" loading="lazy" alt="Bastidores"></div>
-                    <div class="gallery-item reveal-on-scroll"><img src="https://picsum.photos/seed/crowd/400/400" class="gallery-img" loading="lazy" alt="Fãs"></div>
-                    <div class="gallery-item reveal-on-scroll"><img src="https://picsum.photos/seed/guitar/400/400" class="gallery-img" loading="lazy" alt="Violão"></div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="footer-quote">"Quem canta seus medos, espanta seus monstros."</div>
-            <p class="footer-credits">Homenagem Digital &copy; 2023 | Marília Mendonça</p>
         </div>
+        
+        <div class="hero-content">
+            <h4 class="highlight reveal">O FUTURO É AGORA</h4>
+            <h1 class="glitch-text reveal">A REVO LUÇÃO<br>DA IA</h1>
+            <p class="subtitle reveal">
+                Apresentamos a Trix IA. Movida pelo processador mais rápido do mundo.
+            </p>
+            <a href="#about" class="btn-cta reveal hover-trigger">Descubra o RPU</a>
+        </div>
+    </section>
+
+    <!-- About RPU -->
+    <section id="about">
+        <h2 class="section-title reveal">O Que é o <span class="highlight">RPU</span>?</h2>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <p class="reveal" style="font-size: 1.2rem; color: #ccc; margin-bottom: 30px;">
+                O <strong>Rapid Processing Unit (RPU)</strong> é um processador revolucionário de IA em escala de wafer inteiro.
+                <br><br>
+                Ao contrário dos processadores tradicionais, o RPU transforma um wafer completo de silício em um único chip gigantesco — o maior processador de IA do mundo.
+            </p>
+        </div>
+
+        <!-- Comparison Visual -->
+        <div class="comparison reveal">
+            <div class="comparison-visual">
+                <div class="gpu-box">
+                    <span class="gpu-label">GPU Comum</span>
+                </div>
+                <div class="rpu-box hover-trigger">
+                    <span class="rpu-label">58x Maior</span>
+                    RPU
+                </div>
+            </div>
+            <div class="comparison-text">
+                <h3 style="color: var(--text-white); font-size: 2rem; margin-bottom: 20px;">Dimensões Extremas</h3>
+                <p style="color: var(--text-gray);">
+                    Com <strong>~215 × 215 mm</strong>, o tamanho do RPU é incomparável. Essa escala massiva permite uma integração de componentes jamais vista, eliminando as barreiras físicas da computação tradicional.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specs Grid -->
+    <section id="specs" style="background: rgba(10,0,0,0.5);">
+        <h2 class="section-title reveal">Especificações <span class="highlight">Técnicas</span></h2>
+        
+        <div class="rpu-grid">
+            <!-- Spec 1 -->
+            <div class="card reveal hover-trigger">
+                <div class="card-icon">⚡</div>
+                <h3>Poder Bruto</h3>
+                <span class="stat-number counter" data-target="4">0</span>
+                <span class="stat-label">Trilhões de Transistores</span>
+                <p style="margin-top: 15px;">Densidade de silício sem precedentes para cálculos massivos.</p>
+            </div>
+
+            <!-- Spec 2 -->
+            <div class="card reveal hover-trigger">
+                <div class="card-icon">🧠</div>
+                <h3>Núcleos de IA</h3>
+                <span class="stat-number counter" data-target="900">0</span>
+                <span class="stat-label">Mil Núcleos</span>
+                <p style="margin-top: 15px;">900.000 núcleos dedicados otimizados para aprendizado profundo.</p>
+            </div>
+
+            <!-- Spec 3 -->
+            <div class="card reveal hover-trigger">
+                <div class="card-icon">🚀</div>
+                <h3>Desempenho</h3>
+                <span class="stat-number counter" data-target="125">0</span>
+                <span class="stat-label">Petaflops</span>
+                <p style="margin-top: 15px;">Velocidade extrema apoiada por 44 GB de SRAM integrada.</p>
+            </div>
+
+            <!-- Spec 4 -->
+            <div class="card reveal hover-trigger">
+                <div class="card-icon">💠</div>
+                <h3>Banda Larga</h3>
+                <span class="stat-number counter" data-target="21">0</span>
+                <span class="stat-label">Petabytes/Segundo</span>
+                <p style="margin-top: 15px;">Fluxo de dados que rompe gargalos tradicionais de memória.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why it is special -->
+    <section id="benefits" class="why-special">
+        <h2 class="section-title reveal">Por Que é <span class="highlight">Especial?</span></h2>
+        
+        <div class="reveal" style="max-width: 900px; margin: 0 auto;">
+            <ul class="feature-list">
+                <li class="feature-item">
+                    <div style="flex: 1;">
+                        <h4>Memória e Processamento Unificados</h4>
+                        <p>Une memória e processamento no mesmo die, eliminando gargalos de comunicação entre componentes.</p>
+                    </div>
+                    <div style="font-size: 2rem; color: var(--primary-red);">⏱️</div>
+                </li>
+                
+                <li class="feature-item">
+                    <div style="flex: 1;">
+                        <h4>Inferência Ultrarrápida</h4>
+                        <p>Respostas em tempo real com latência extremamente baixa, ideal para aplicações críticas.</p>
+                    </div>
+                    <div style="font-size: 2rem; color: var(--primary-red);>🎯</div>
+                </li>
+
+                <li class="feature-item">
+                    <div style="flex: 1;">
+                        <h4>Treinamento de Modelos Gigantes</h4>
+                        <p>Capacidade de treinar redes neurais massivas em uma fração do tempo de supercomputadores tradicionais.</p>
+                    </div>
+                    <div style="font-size: 2rem; color: var(--primary-red);">🌐</div>
+                </li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px;" class="reveal">
+            <p style="font-size: 1.5rem; font-family: 'Orbitron'; margin-bottom: 20px;">Uma abordagem elegante e poderosa para IA de ponta!</p>
+            <a href="#" class="btn-cta hover-trigger">Conheça a Trix IA</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">TRIX<span>IA</span></div>
+        <p class="copyright">© 2023 Trix IA Technologies. Todos os direitos reservados.</p>
+        <p style="margin-top: 10px; color: #444; font-size: 0.8rem;">Design Ultra-Futuristic</p>
     </footer>
 
-    <!-- Script de Performance (Intersection Observer) -->
+    <!-- Scripts -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // Configuração do Observer para animações de scroll
-            // Usamos threshold baixo para iniciar a animação assim que o elemento entrar
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15
-            };
+        // --- Custom Cursor Logic ---
+        const cursor = document.querySelector('.cursor');
+        const triggers = document.querySelectorAll('.hover-trigger, a, button, .card');
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('reveal-active');
-                        // Opcional: Parar de observar após animar para performance
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            // Seleciona todos os elementos que precisam de animação
-            const animatedElements = document.querySelectorAll('.reveal-on-scroll');
-            animatedElements.forEach(el => observer.observe(el));
-
-            // Efeito Parallax suave no Hero (apenas para desktop para não travar mobile)
-            const heroBg = document.querySelector('.hero-bg');
-            if(window.innerWidth > 768) {
-                window.addEventListener('scroll', () => {
-                    const scrollPosition = window.scrollY;
-                    if (scrollPosition < window.innerHeight) {
-                        heroBg.style.transform = `scale(1.1) translateY(${scrollPosition * 0.4}px)`;
-                    }
-                });
-            }
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
         });
 
-        // Função simples do menu (placeholder)
-        function toggleMenu() {
-            // Em uma implementação completa, isso abriria um modal ou drawer
-            const brand = document.querySelector('.brand');
-            brand.style.color = brand.style.color === 'white' ? '#D4AF37' : 'white';
+        triggers.forEach(trigger => {
+            trigger.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            trigger.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+
+        // --- Scroll Reveal Animation ---
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 150;
+
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                    
+                    // Trigger counters if this is the spec section
+                    if(reveal.classList.contains('counter') && !reveal.classList.contains('counted')) {
+                        startCounter(reveal);
+                        reveal.classList.add('counted');
+                    }
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        // Trigger once on load
+        revealOnScroll();
+
+        // --- Number Counter Animation ---
+        function startCounter(el) {
+            const target = +el.getAttribute('data-target');
+            const duration = 2000; // 2 seconds
+            const increment = target / (duration / 16); // 60fps
+            
+            let current = 0;
+            
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    el.innerText = Math.ceil(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    el.innerText = target;
+                }
+            };
+            
+            updateCounter();
         }
-    </script>
-</body>
-                </html>
+
+        // --- Canvas Particle System (Neural Network Effect) ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray;
+
+        // Handle Resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        // Particle Class
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() * 1.5 - 0.75) * 0.5; // Slow movement
+                this.speedY = (Math.random() * 1.5 - 0.75) * 0.5;
+                this.color = '#ff003c';
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Bounce edges
+                if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
+                if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 15000; // Density
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function connect() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
