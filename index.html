@@ -1,36 +1,36 @@
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Homenagem completa à Marília Mendonça. A Rainha da Sofrência. Biografia, discografia, prêmios e legado da maior cantora brasileira.">
-    <meta name="theme-color" content="#4a148c">
-    <title>Marília Mendonça | A Rainha Inesquecível</title>
-    
-    <!-- Fonte Google Performática -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#050505">
+    <title>Marília Mendonça | Legado Eterno</title>
+    <meta name="description" content="Uma experiência cinemática sobre a vida e a obra da maior da sofrência.">
+
+    <!-- Fontes Cinematográficas -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        /* --- RESET & VARIÁVEIS --- */
         :root {
-            --primary: #4a148c; /* Roxo Marília */
-            --primary-dark: #2c0b55;
-            --accent: #ffb300; /* Dourado */
-            --text-main: #333333;
-            --text-light: #f5f5f5;
-            --bg-body: #f9f9f9;
-            --bg-card: #ffffff;
-            --transition: all 0.3s ease;
-            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --bg-deep: #050505;
+            --bg-card: #121212;
+            --gold-primary: #D4AF37;
+            --gold-dim: #8a701e;
+            --text-main: #e0e0e0;
+            --text-muted: #888888;
+            --font-title: 'Cinzel', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --transition-smooth: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         html {
@@ -38,624 +38,619 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-body);
+            background-color: var(--bg-deep);
             color: var(--text-main);
-            line-height: 1.6;
+            font-family: var(--font-body);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* --- TIPOGRAFIA --- */
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary);
+        /* --- Utilitários de Performance e Estética --- */
+        ::selection {
+            background: var(--gold-primary);
+            color: #000;
         }
 
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Efeito de Granulação de Filme */
+        .film-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            z-index: 9999;
+            opacity: 0.4;
+        }
+
+        /* --- Header Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-family: var(--font-title);
+            font-weight: 700;
+            color: var(--gold-primary);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .menu-icon {
+            width: 30px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--gold-primary);
+            transition: var(--transition-smooth);
+        }
+
+        /* --- Hero Section (Cinematic Intro) --- */
+        #hero {
+            height: 100vh;
+            width: 100%;
             position: relative;
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Imagem placeholder de alta qualidade e tema musical */
+            background-image: linear-gradient(to bottom, rgba(5,5,5,0.3), var(--bg-deep)), url('https://picsum.photos/seed/mariliahero/1080/1920');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            transform: scale(1.1);
+            animation: slowZoom 20s infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            from { transform: scale(1.1); }
+            to { transform: scale(1.2); }
+        }
+
+        .hero-content {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1.5s ease-out forwards 0.5s;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold-primary);
+            margin-bottom: 15px;
+        }
+
+        .hero-title {
+            font-family: var(--font-title);
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(to right, #fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-mouse {
+            width: 24px;
+            height: 40px;
+            border: 2px solid var(--gold-dim);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .scroll-wheel {
+            width: 4px;
+            height: 8px;
+            background: var(--gold-primary);
+            border-radius: 2px;
+            position: absolute;
+            top: 6px;
             left: 50%;
             transform: translateX(-50%);
         }
 
-        h2::after {
-            content: '';
-            display: block;
+        /* --- Section Styling Global --- */
+        section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0; /* Para animação JS */
+            transform: translateY(20px);
+            transition: var(--transition-smooth);
+        }
+
+        .section-title {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            color: var(--gold-primary);
+            margin-bottom: 10px;
+        }
+
+        .section-line {
             width: 60px;
             height: 3px;
-            background: var(--accent);
-            margin: 10px auto 0;
-        }
-
-        p {
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            color: #555;
-        }
-
-        /* --- HEADER & NAV --- */
-        header {
-            background: rgba(74, 20, 140, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .logo {
-            color: #fff;
-            font-size: 1.5rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            transition: var(--transition);
-        }
-
-        nav a:hover {
-            color: var(--accent);
-        }
-
-        /* Mobile Menu Button */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-
-        .bar {
-            width: 25px;
-            height: 3px;
-            background-color: #fff;
-            transition: var(--transition);
-        }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(74, 20, 140, 0.8)), 
-                        url('https://picsum.photos/seed/marilia3/1920/1080') center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 20px;
-            margin-top: 0;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            animation: fadeIn Up 1s ease-out;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            color: #fff;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #ddd;
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-
-        .btn-cta {
-            background: var(--accent);
-            color: var(--primary-dark);
-            padding: 15px 35px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
-            text-decoration: none;
-            transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(255, 179, 0, 0.4);
-            display: inline-block;
-        }
-
-        .btn-cta:hover {
-            transform: translateY(-3px);
-            background: #ffca28;
-            box-shadow: 0 6px 20px rgba(255, 179, 0, 0.6);
-        }
-
-        /* --- SECTIONS GERAL --- */
-        section {
-            padding: 80px 5%;
-            max-width: 1400px;
+            background: var(--gold-dim);
             margin: 0 auto;
         }
 
-        /* --- BIOGRAFIA --- */
-        .bio-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        /* --- Biografia (Timeline Vertical) --- */
+        .bio-content {
+            display: flex;
+            flex-direction: column;
             gap: 40px;
-            align-items: center;
         }
 
-        .bio-img {
+        .bio-card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 4px;
+            border-left: 3px solid var(--gold-dim);
+            position: relative;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: var(--transition-smooth);
+        }
+
+        .bio-year {
+            font-family: var(--font-title);
+            font-size: 1.5rem;
+            color: var(--gold-primary);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .bio-text {
+            font-size: 1rem;
+            color: #ccc;
+        }
+
+        /* --- Discografia (Horizontal Snap Scroll - Mobile Friendly) --- */
+        .discography-scroller {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 30px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .discography-scroller::-webkit-scrollbar {
+            height: 4px;
+        }
+        
+        .discography-scroller::-webkit-scrollbar-thumb {
+            background: var(--gold-dim);
+            border-radius: 4px;
+        }
+
+        .album-card {
+            min-width: 280px;
+            width: 280px;
+            height: 400px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            scroll-snap-align: center;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        
+        .album-card:active {
+            transform: scale(0.95);
+        }
+
+        .album-cover {
             width: 100%;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
 
-        .bio-img:hover {
-            transform: scale(1.02);
+        .album-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
         }
 
+        .album-card:hover .album-overlay {
+            transform: translateY(0);
+        }
+
+        .album-title {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .album-year {
+            font-size: 0.8rem;
+            color: var(--gold-primary);
+        }
+
+        /* --- Stats Section (Counters) --- */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 20px;
+            gap: 20px;
         }
 
-        .stat-card {
-            background: var(--bg-card);
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        .stat-item {
             text-align: center;
-            border-bottom: 3px solid var(--primary);
+            padding: 30px 10px;
+            background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 8px;
+            opacity: 0;
+            transition: var(--transition-smooth);
         }
 
         .stat-number {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold-primary);
             display: block;
         }
 
         .stat-label {
             font-size: 0.8rem;
             text-transform: uppercase;
-            color: #777;
+            letter-spacing: 1px;
+            color: var(--text-muted);
         }
 
-        /* --- DISCOGRAFIA (CARDS) --- */
-        .discography-section {
-            background-color: #fff;
-        }
-
-        .album-grid {
+        /* --- Gallery Section --- */
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
         }
 
-        .album-card {
-            background: var(--bg-body);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+        .gallery-item {
             position: relative;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0;
         }
 
-        .album-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .album-cover {
+        .gallery-img {
             width: 100%;
-            height: 280px;
+            height: 100%;
             object-fit: cover;
-            border-bottom: 4px solid var(--accent);
+            transition: transform 0.5s ease;
         }
 
-        .album-info {
-            padding: 20px;
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
         }
 
-        .album-year {
-            font-size: 0.8rem;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .album-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin: 5px 0;
-            color: var(--text-main);
-        }
-
-        /* --- LEGADO & PRÊMIOS --- */
-        .legacy-section {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
-            color: #fff;
-        }
-
-        .legacy-section h2 {
-            color: #fff;
-        }
-
-        .legacy-section p {
-            color: #e0e0e0;
-        }
-
-        .awards-list {
-            list-style: none;
-            display: grid;
-            gap: 20px;
-        }
-
-        .award-item {
-            background: rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-left: 4px solid var(--accent);
-        }
-
-        .award-icon {
-            font-size: 2rem;
-        }
-
-        /* --- FOOTER --- */
+        /* --- Footer --- */
         footer {
-            background: #111;
-            color: #888;
+            padding: 60px 0 30px;
             text-align: center;
-            padding: 40px 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            background: #000;
         }
 
-        .footer-logo {
+        .footer-quote {
+            font-family: var(--font-title);
             font-size: 1.5rem;
-            color: #fff;
-            margin-bottom: 10px;
-            display: block;
+            color: var(--gold-primary);
+            margin-bottom: 20px;
+            font-style: italic;
         }
 
-        .social-links {
-            margin: 20px 0;
+        .footer-credits {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .social-links a {
-            color: #fff;
-            margin: 0 10px;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: 0.3s;
-        }
-
-        .social-links a:hover {
-            color: var(--accent);
-        }
-
-        /* --- RESPONSIVIDADE (MOBILE) --- */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            h2 { font-size: 1.8rem; }
-            
-            .menu-toggle { display: flex; z-index: 1001; }
-            
-            nav ul {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                height: 100vh;
-                background: var(--primary-dark);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                box-shadow: -5px 0 15px rgba(0,0,0,0.3);
-            }
-
-            nav ul.active {
-                right: 0;
-            }
-
-            .bio-container {
-                grid-template-columns: 1fr;
-            }
-
-            .bio-img {
-                order: -1; /* Imagem acima no mobile */
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .album-grid {
-                grid-template-columns: 1fr; /* Lista vertical no mobile para melhor leitura */
-            }
-            
-            .album-card {
-                display: flex;
-                height: auto;
-            }
-            
-            .album-cover {
-                width: 120px;
-                height: auto;
-                border-bottom: none;
-                border-right: 4px solid var(--accent);
-            }
-            
-            .album-info {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-        }
-        
-        /* Animação leve */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
+        /* --- Animations Keyframes --- */
+        @keyframes fadeUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-10px);}
+            60% {transform: translateX(-50%) translateY(-5px);}
+        }
+
+        /* Class utilitária para ativar animações no scroll */
+        .reveal-active {
+            opacity: 1 !important;
+            transform: translate(0, 0) scale(1) !important;
+        }
+
+        /* Media Queries para telas maiores */
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .bio-content {
+                max-width: 800px;
+                margin: 0 auto;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
-    <header>
-        <a href="#" class="logo">Marília <span>Mendonça</span></a>
-        <div class="menu-toggle" id="mobile-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+    <!-- Efeito visual de filme -->
+    <div class="film-grain"></div>
+
+    <!-- Navegação -->
+    <nav>
+        <div class="container nav-content">
+            <div class="brand">Marília M.</div>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        <nav>
-            <ul id="nav-list">
-                <li><a href="#inicio">Início</a></li>
-                <li><a href="#biografia">Biografia</a></li>
-                <li><a href="#discografia">Discografia</a></li>
-                <li><a href="#legado">Legado</a></li>
-            </ul>
-        </nav>
-    </header>
+    </nav>
 
     <!-- Hero Section -->
-    <section id="inicio" class="hero">
-        <div class="hero-content">
-            <h1>A Rainha da Sofrência</h1>
-            <p>Marília Mendonça: A voz que definiu uma geração e transformou a dor em arte eterna.</p>
-            <a href="#biografia" class="btn-cta">Conheça sua História</a>
+    <header id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content container">
+            <p class="hero-subtitle">A Rainha da Sofrência</p>
+            <h1 class="hero-title">Marília<br>Mendonça</h1>
+            <p style="color: #ccc; font-size: 0.9rem; max-width: 600px; margin: 0 auto;">Uma voz que ecoou na dor e na alegria de milhões. O legado eterno da maior cantora do Brasil.</p>
         </div>
-    </section>
+        <div class="scroll-indicator">
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+        </div>
+    </header>
 
-    <!-- Biografia Section -->
-    <section id="biografia">
-        <h2>Quem foi Marília?</h2>
-        <div class="bio-container">
-            <div class="bio-text">
-                <p><strong>Marília Dias Mendonça</strong>, nascida em Goianésia, Goiás, em 22 de julho de 1995, foi a maior cantora e compositora do Brasil. Conhecida mundialmente como a "Rainha da Sofrência", ela revolucionou o cenário musical ao trazer uma abordagem feminina autêntica para o sertanejo.</p>
-                <p>Mais do que uma cantora, Marília foi uma porta-voz para milhões de mulheres. Suas letras falavam de traições, amor próprio e superação, criando uma conexão visceral com seu público. Apesar de sua partida trágica em 5 de novembro de 2021, sua obra continua quebrando recordes e inspirando novas gerações.</p>
-                
+    <main>
+        <!-- Biografia Section -->
+        <section id="biografia">
+            <div class="container">
+                <div class="section-header reveal-on-scroll">
+                    <h2 class="section-title">A História</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <div class="bio-content">
+                    <article class="bio-card reveal-on-scroll">
+                        <span class="bio-year">1994 - O Início</span>
+                        <p class="bio-text">Nascida em Cristianópolis, Goiás, Marília Dias de Mendonça mostrou seu talento cedo. Com apenas 12 anos, já cantava em corais e escrevia suas primeiras canções, revelando a sensibilidade poética que a marcaria para sempre.</p>
+                    </article>
+
+                    <article class="bio-card reveal-on-scroll">
+                        <span class="bio-year">2015 - Explosão</span>
+                        <p class="bio-text">O lançamento do álbum homônio e o sucesso de "Sentimento Louco" consolidaram sua carreira. Ela rompeu barreiras, trazendo o feminejo para o mainstream e falando diretamente ao coração das mulheres brasileiras.</p>
+                    </article>
+
+                    <article class="bio-card reveal-on-scroll">
+                        <span class="bio-year">2019 - Realidade</span>
+                        <p class="bio-text">O DVD "Todos os Cantos" quebrou recordes, gravado em shows por todo o Brasil. Ela se tornou a mulher mais ouvida no país, dominando o Spotify e as rádios com uma autenticidade ímpar.</p>
+                    </article>
+
+                    <article class="bio-card reveal-on-scroll">
+                        <span class="bio-year">2021 - Eternidade</span>
+                        <p class="bio-text">Sua partida física chocou o mundo, mas sua voz permanece viva. Com bilhões de streams e o prêmio Grammy Latino póstumo, Marília se transformou em lenda, imortalizada na cultura popular brasileira.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Discografia Section -->
+        <section id="discografia">
+            <div class="container">
+                <div class="section-header reveal-on-scroll">
+                    <h2 class="section-title">Obras Primas</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <!-- Scroll Snap para experiência nativa no mobile -->
+                <div class="discography-scroller">
+                    <div class="album-card reveal-on-scroll">
+                        <img src="https://picsum.photos/seed/mar1/400/600" alt="Capa Album" class="album-cover" loading="lazy">
+                        <div class="album-overlay">
+                            <h3 class="album-title">Realidade</h3>
+                            <span class="album-year">2017</span>
+                        </div>
+                    </div>
+                    <div class="album-card reveal-on-scroll">
+                        <img src="https://picsum.photos/seed/mar2/400/600" alt="Capa Album" class="album-cover" loading="lazy">
+                        <div class="album-overlay">
+                            <h3 class="album-title">Todos os Cantos</h3>
+                            <span class="album-year">2019</span>
+                        </div>
+                    </div>
+                    <div class="album-card reveal-on-scroll">
+                        <img src="https://picsum.photos/seed/mar3/400/600" alt="Capa Album" class="album-cover" loading="lazy">
+                        <div class="album-overlay">
+                            <h3 class="album-title">Patroas</h3>
+                            <span class="album-year">2019</span>
+                        </div>
+                    </div>
+                    <div class="album-card reveal-on-scroll">
+                        <img src="https://picsum.photos/seed/mar4/400/600" alt="Capa Album" class="album-cover" loading="lazy">
+                        <div class="album-overlay">
+                            <h3 class="album-title">Patroas 35%</h3>
+                            <span class="album-year">2020</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section id="numeros">
+            <div class="container">
+                <div class="section-header reveal-on-scroll">
+                    <h2 class="section-title">O Impacto</h2>
+                    <div class="section-line"></div>
+                </div>
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-number">+10M</span>
-                        <span class="stat-label">Vendas (Certificado)</span>
+                    <div class="stat-item reveal-on-scroll">
+                        <span class="stat-number">+7B</span>
+                        <span class="stat-label">Streams</span>
                     </div>
-                    <div class="stat-card">
-                        <span class="stat-number">+22B</span>
-                        <span class="stat-label">Streams no Spotify</span>
+                    <div class="stat-item reveal-on-scroll">
+                        <span class="stat-number">+40M</span>
+                        <span class="stat-label">Seguidores</span>
                     </div>
-                    <div class="stat-card">
-                        <span class="stat-number">Top 1</span>
-                        <span class="stat-label">Global Viral 50</span>
+                    <div class="stat-item reveal-on-scroll">
+                        <span class="stat-number">1</span>
+                        <span class="stat-label">Grammy Latino</span>
                     </div>
-                    <div class="stat-card">
-                        <span class="stat-number">+40</span>
-                        <span class="stat-label">Prêmios</span>
+                    <div class="stat-item reveal-on-scroll">
+                        <span class="stat-number">#1</span>
+                        <span class="stat-label">Spotify Brasil</span>
                     </div>
                 </div>
             </div>
-            <!-- Imagem com Seed aleatória mas consistente para o layout -->
-            <img src="https://picsum.photos/seed/marilia1/600/700" alt="Retrato Artístico" class="bio-img" loading="lazy">
-        </div>
-    </section>
+        </section>
 
-    <!-- Discografia Section -->
-    <section id="discografia" class="discography-section">
-        <h2>Discografia Clássica</h2>
-        <p style="text-align: center; max-width: 600px; margin: 0 auto 40px auto;">Albuns que marcaram história e dominaram as paradas de sucesso por anos consecutivos.</p>
-        
-        <div class="album-grid">
-            <!-- Card 1 -->
-            <div class="album-card">
-                <img src="https://picsum.photos/seed/album1/400/400" alt="Capa Auto Foto" class="album-cover" loading="lazy">
-                <div class="album-info">
-                    <span class="album-year">2021</span>
-                    <h3 class="album-title">Patroas 35%</h3>
-                    <p>Último projeto em vida, gravado em parceria com as Maiara & Maraisa.</p>
+        <!-- Gallery Section -->
+        <section id="galeria">
+            <div class="container">
+                <div class="section-header reveal-on-scroll">
+                    <h2 class="section-title">Memórias</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="gallery-grid">
+                    <div class="gallery-item reveal-on-scroll"><img src="https://picsum.photos/seed/show1/400/400" class="gallery-img" loading="lazy" alt="Show"></div>
+                    <div class="gallery-item reveal-on-scroll"><img src="https://picsum.photos/seed/backstage/400/400" class="gallery-img" loading="lazy" alt="Bastidores"></div>
+                    <div class="gallery-item reveal-on-scroll"><img src="https://picsum.photos/seed/crowd/400/400" class="gallery-img" loading="lazy" alt="Fãs"></div>
+                    <div class="gallery-item reveal-on-scroll"><img src="https://picsum.photos/seed/guitar/400/400" class="gallery-img" loading="lazy" alt="Violão"></div>
                 </div>
             </div>
+        </section>
+    </main>
 
-            <!-- Card 2 -->
-            <div class="album-card">
-                <img src="https://picsum.photos/seed/album2/400/400" alt="Capa Todos os Cantos" class="album-cover" loading="lazy">
-                <div class="album-info">
-                    <span class="album-year">2019</span>
-                    <h3 class="album-title">Todos os Cantos Vol. 1</h3>
-                    <p>Projeto gravado em shows por todo o Brasil, celebrando a diversidade cultural.</p>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="album-card">
-                <img src="https://picsum.photos/seed/album3/400/400" alt="Capa Realidade" class="album-cover" loading="lazy">
-                <div class="album-info">
-                    <span class="album-year">2017</span>
-                    <h3 class="album-title">Realidade</h3>
-                    <p>O álbum que consolidou hits como "Eu Sei Que Te Amo" e "Amante Não Tem Lar".</p>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="album-card">
-                <img src="https://picsum.photos/seed/album4/400/400" alt="Capa Marília Mendonça" class="album-cover" loading="lazy">
-                <div class="album-info">
-                    <span class="album-year">2016</span>
-                    <h3 class="album-title">Marília Mendonça (Ao Vivo)</h3>
-                    <p>O fenômeno que explodiu com "Infiel" e mudou o paradigma do sertanejo.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Legado Section -->
-    <section id="legado" class="legacy-section">
-        <h2>Legado Eterno</h2>
-        <div style="max-width: 900px; margin: 0 auto;">
-            <p>Marília foi pioneira ao dar voz à mulher sertaneja. Ela não apenas cantava, mas vivenciava cada letra junto com milhões de fãs. Seu legado transcende a música; é um movimento de empoderamento e verdade.</p>
-            
-            <ul class="awards-list" style="margin-top: 40px;">
-                <li class="award-item">
-                    <span class="award-icon">🏆</span>
-                    <div>
-                        <h3>Latin Grammy 2022</h3>
-                        <p>Venceu na categoria de Melhor Álbum de Música Sertaneja.</p>
-                    </div>
-                </li>
-                <li class="award-item">
-                    <span class="award-icon">🎵</span>
-                    <div>
-                        <h3>Compositora do Ano</h3>
-                        <p>Prêmio Multishow, reconhecendo sua genialidade na escrita.</p>
-                    </div>
-                </li>
-                <li class="award-item">
-                    <span class="award-icon">🌍</span>
-                    <div>
-                        <h3>Artista Feminina Mais Ouvida</h3>
-                        <p>Recorde absoluto no Spotify Brasil por anos consecutivos.</p>
-                    </div>
-                </li>
-                <li class="award-item">
-                    <span class="award-icon">💜</span>
-                    <div>
-                        <h3>Embaixadora Digital</h3>
-                        <p>Líder absoluta de engajamento nas redes sociais.</p>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer>
-        <span class="footer-logo">Marília <span>Mendonça</span></span>
-        <p>Homenagem não-oficial dedicada aos fãs e à memória da artista.</p>
-        <p>Feito com 💜 e muito respeito.</p>
-        
-        <div class="social-links">
-            <a href="#" aria-label="Instagram">Instagram</a>
-            <a href="#" aria-label="YouTube">YouTube</a>
-            <a href="#" aria-label="Spotify">Spotify</a>
+        <div class="container">
+            <div class="footer-quote">"Quem canta seus medos, espanta seus monstros."</div>
+            <p class="footer-credits">Homenagem Digital &copy; 2023 | Marília Mendonça</p>
         </div>
-
-        <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.5;">&copy; 2023 Tributo. Todos os direitos reservados às gravadoras originais.</p>
     </footer>
 
-    <!-- Script Otimizado (Apenas para interatividade essencial) -->
+    <!-- Script de Performance (Intersection Observer) -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const menuToggle = document.getElementById('mobile-menu');
-            const navList = document.getElementById('nav-list');
-            const navLinks = document.querySelectorAll('#nav-list a');
-
-            // Toggle do Menu Mobile
-            menuToggle.addEventListener('click', () => {
-                navList.classList.toggle('active');
-                
-                // Animação do ícone hambúrguer
-                const bars = document.querySelectorAll('.bar');
-                if (navList.classList.contains('active')) {
-                    bars[0].style.transform = 'rotate(-45deg) translate(-5px, 6px)';
-                    bars[1].style.opacity = '0';
-                    bars[2].style.transform = 'rotate(45deg) translate(-5px, -6px)';
-                } else {
-                    bars[0].style.transform = 'none';
-                    bars[1].style.opacity = '1';
-                    bars[2].style.transform = 'none';
-                }
-            });
-
-            // Fechar menu ao clicar em um link (UX Mobile)
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    navList.classList.remove('active');
-                    // Resetar ícone
-                    const bars = document.querySelectorAll('.bar');
-                    bars[0].style.transform = 'none';
-                    bars[1].style.opacity = '1';
-                    bars[2].style.transform = 'none';
-                });
-            });
-
-            // Otimização: Lazy load nativo já está no HTML, 
-            // mas adicionamos fade-in simples via JS para imagens ao entrarem na tela
+            
+            // Configuração do Observer para animações de scroll
+            // Usamos threshold baixo para iniciar a animação assim que o elemento entrar
             const observerOptions = {
-                threshold: 0.1
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
             };
 
-            const observer = new IntersectionObserver((entries) => {
+            const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.classList.add('reveal-active');
+                        // Opcional: Parar de observar após animar para performance
+                        observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
-            // Aplica animação de entrada nos cards e imagens
-            const animatedElements = document.querySelectorAll('.album-card, .bio-img, .award-item');
-            animatedElements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-                observer.observe(el);
-            });
+            // Seleciona todos os elementos que precisam de animação
+            const animatedElements = document.querySelectorAll('.reveal-on-scroll');
+            animatedElements.forEach(el => observer.observe(el));
+
+            // Efeito Parallax suave no Hero (apenas para desktop para não travar mobile)
+            const heroBg = document.querySelector('.hero-bg');
+            if(window.innerWidth > 768) {
+                window.addEventListener('scroll', () => {
+                    const scrollPosition = window.scrollY;
+                    if (scrollPosition < window.innerHeight) {
+                        heroBg.style.transform = `scale(1.1) translateY(${scrollPosition * 0.4}px)`;
+                    }
+                });
+            }
         });
+
+        // Função simples do menu (placeholder)
+        function toggleMenu() {
+            // Em uma implementação completa, isso abriria um modal ou drawer
+            const brand = document.querySelector('.brand');
+            brand.style.color = brand.style.color === 'white' ? '#D4AF37' : 'white';
+        }
     </script>
 </body>
-            </html>
+                </html>
