@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Marília Mendonça | Dados do Sistema</title>
+    <style>
+        /* IMPORTAÇÃO DE FONTES FUTURISTAS */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
+
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00ff;
+            --neon-gold: #ffd700;
+            --bg-dark: #050505;
+            --bg-panel: #0a0a0f;
+            --text-main: #e0e0e0;
+            --glass: rgba(0, 243, 255, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--neon-blue) var(--bg-dark);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* EFEITO DE SCANLINE (TV ANTIGA/HOLO) */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 100;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        /* TIPOGRAFIA */
+        h1, h2, h3 {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .glitch-text {
+            color: var(--neon-blue);
+            text-shadow: 2px 2px var(--neon-pink);
+            animation: glitch 3s infinite alternate;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px var(--neon-pink); }
+            50% { text-shadow: -2px -2px var(--neon-blue); }
+            100% { text-shadow: 2px 2px var(--neon-gold); }
+        }
+
+        /* HEADER FUTURISTA */
+        header {
+            background: rgba(5, 5, 5, 0.9);
+            padding: 20px;
+            border-bottom: 1px solid var(--neon-blue);
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--neon-blue);
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            color: var(--neon-gold);
+        }
+
+        .blink {
+            width: 8px;
+            height: 8px;
+            background-color: var(--neon-gold);
+            border-radius: 50%;
+            animation: blinker 1.5s linear infinite;
+        }
+
+        @keyframes blinker { 50% { opacity: 0; } }
+
+        /* CONTAINER PRINCIPAL */
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+            border: 1px solid var(--neon-pink);
+            padding: 30px 15px;
+            background: var(--glass);
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-pink), transparent);
+            animation: scan 2s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .hero-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+            margin-bottom: 20px;
+            object-fit: cover;
+            /* Placeholder visual, pois não posso hospedar imagens reais */
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Marilia_Mendonca_2021.jpg/440px-Marilia_Mendonca_2021.jpg') center/cover;
+            display: inline-block;
+        }
+
+        .hero h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--neon-pink);
+            font-size: 1rem;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+        }
+
+        /* DATA PANELS */
+        .data-panel {
+            background: var(--bg-panel);
+            border: 1px solid #333;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .data-panel::before {
+            content: '[ DADOS DO SISTEMA ]';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: var(--bg-dark);
+            padding: 0 5px;
+            color: var(--neon-blue);
+            font-size: 0.7rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .info-item h3 {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .info-item p {
+            color: var(--neon-blue);
+            font-weight: 700;
+        }
+
+        /* DISCOGRAPHY & TIMELINE */
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--neon-gold);
+            margin: 40px 0 20px 0;
+            border-left: 4px solid var(--neon-gold);
+            padding-left: 10px;
+        }
+
+        .timeline-item {
+            border-left: 2px solid #333;
+            padding-left: 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background: var(--neon-pink);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .year {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-pink);
+            font-size: 0.9rem;
+        }
+
+        .song-list {
+            list-style: none;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .song-list li {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+
+        .song-list li:last-child { border-bottom: none; }
+        .hit-icon { color: var(--neon-gold); }
+
+        /* LEGACY SECTION */
+        .legacy-box {
+            background: linear-gradient(45deg, rgba(0,243,255,0.1), transparent);
+            padding: 20px;
+            border: 1px dashed var(--neon-blue);
+            text-align: justify;
+            font-size: 0.95rem;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.8rem;
+            color: #555;
+            border-top: 1px solid #222;
+            margin-top: 50px;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.5rem; }
+            .info-grid { grid-template-columns: 1fr; }
+            main { padding: 15px; }
+            .song-list li { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER DE NAVEGAÇÃO -->
+    <header>
+        <div class="logo">KUROMI // SYSTEM</div>
+        <div class="status-indicator">
+            <div class="blink"></div>
+            ONLINE
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-img" role="img" aria-label="Foto de Marília Mendonça"></div>
+            <h1 class="glitch-text">MARÍLIA MENDONÇA</h1>
+            <div class="subtitle">A RAINHA DA SOFRÊNCIA</div>
+            <p style="color: #aaa; font-size: 0.9rem;">Caratinga, MG • 1995 — 2021</p>
+        </section>
+
+        <!-- DADOS BIOGRÁFICOS -->
+        <section class="data-panel">
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>Nome Completo</h3>
+                    <p>Marília Dias Mendonça</p>
+                </div>
+                <div class="info-item">
+                    <h3>Nascimento</h3>
+                    <p>22 Jul 1995</p>
+                </div>
+                <div class="info-item">
+                    <h3>Gênero Musical</h3>
+                    <p>Sertanejo, Piseiro</p>
+                </div>
+                <div class="info-item">
+                    <h3>Principais Prêmios</h3>
+                    <p>Latin Grammy, Prêmios Multishow</p>
+                </div>
+                <div class="info-item">
+                    <h3>Instagram</h3>
+                    <p>65.8M+ Seguidores (Recorde)</p>
+                </div>
+                <div class="info-item">
+                    <h3>Status</h3>
+                    <p style="color: var(--neon-pink)">LEGADO IMORTAL</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TIMELINE / CARREIRA -->
+        <h2 class="section-title">LINHA DO TEMPO OPERACIONAL</h2>
+
+        <div class="timeline-item">
+            <span class="year">2014</span>
+            <h3>Início da Carreira</h3>
+            <p style="font-size: 0.9rem; margin-top: 5px;">Ingressou na música aos 9 anos. O EP homônimo foi lançado em 2014, mas foi em 2015 que "Impressionando os Ingressos" ganhou força.</p>
+        </div>
+
+        <div class="timeline-item">
+            <span class="year">2016</span>
+            <h3>Marília Mendonça: Ao Vivo</h3>
+            <p style="font-size: 0.9rem; margin-top: 5px;">O álbum que explodiu nacionalmente. Inclui o hit "Infiel", que consolidou sua voz como a maior representante da dor feminina no sertanejo.</p>
+        </div>
+
+        <div class="timeline-item">
+            <span class="year">2019 - 2020</span>
+            <h3>Consagração Massiva</h3>
+            <p style="font-size: 0.9rem; margin-top: 5px;">Venceu o Grammy Latino por "Todos os Cantos". Tornou-se a mulher mais ouvida no Brasil no Spotify.</p>
+        </div>
+
+        <div class="timeline-item">
+            <span class="year">2021</span>
+            <h3>Despedida</h3>
+            <p style="font-size: 0.9rem; margin-top: 5px;">Falecida em 5 de novembro em um trágico acidente aéreo. Deixou um legado que transformou o mercado musical brasileiro.</p>
+        </div>
+
+        <!-- HITS & DISCOGRAFIA -->
+        <h2 class="section-title">BANCO DE DADOS DE HITS</h2>
+        
+        <div class="data-panel">
+            <h3 style="color: var(--neon-blue); margin-bottom: 15px;">SINGLES MAIS TOCADOS</h3>
+            <ul class="song-list">
+                <li><span>Todo Mundo Vai Sofrer</span> <span class="hit-icon">★</span></li>
+                <li><span>Infiel</span> <span class="hit-icon">★</span></li>
+                <li><span>Eu Sei que Te Amo</span> <span class="hit-icon">★</span></li>
+                <li><span>Como Faz com Ela</span> <span class="hit-icon">★</span></li>
+                <li><span>Amante Não Tem Lar</span> <span class="hit-icon">★</span></li>
+                <li><span>Ciumeira</span> <span class="hit-icon">★</span></li>
+                <li><span>Com Boca Aberta</span> <span class="hit-icon">★</span></li>
+                <li><span>Vivendo o Agora</span> <span class="hit-icon">★</span></li>
+            </ul>
+        </div>
+
+        <!-- LEGACY TEXT -->
+        <h2 class="section-title">IMPACTO CULTURAL</h2>
+        <div class="legacy-box">
+            <p>Marília Mendonça não foi apenas uma cantora, ela foi um fenômeno social. Conhecida como "A Garota de Caratinga", ela quebrou barreiras em um mercado dominado por homens, cantando sobre adultério, amor próprio e a dor de ser mulher no sertanejo. Sua autenticidade permitiu que milhões de mulheres se vissem em suas letras. Pós-morte, ela continuou quebrando recordes com álbuns como "Decretos Reais" (Vol. 1 e 2), provando que sua voz transcende o tempo físico. Ela é a Rainha da Sofrência e a eterna Maior do Brasil.</p>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>Redspace Systems © 2024</p>
+        <p style="font-size: 0.7rem; margin-top: 5px; opacity: 0.6;">Designed by Kuromi IA</p>
+        <p style="font-size: 0.7rem; margin-top: 5px; opacity: 0.6;">Powered by Redzin Technology</p>
+    </footer>
+
+    <script>
+        // Script leve para efeito de digitação no console (apenas visual)
+        console.log("%c SYSTEM READY ", "background: #000; color: #00f3ff; font-size: 20px; font-weight: bold;");
+        console.log("Carregando dados de Marília Mendonça...");
+        console.log("Status: Carregado com sucesso.");
+    </script>
+</body>
+</html>
